@@ -1,12 +1,12 @@
 import { createApp, h } from 'vue';
-import { createRouter, RouterView } from './router.js';
+import { router, RouterView, RouterLink } from './router.js';
 
-export function createPrevuesApp(mode = 'client') {
+export function createPrevuesApp() {
     const app = createApp({
         render() {
             return h('span', {}, [h(RouterView)])
         }
     })
-    app.use(createRouter(mode))
+    app.use(router)
     return app;
 }

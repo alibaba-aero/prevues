@@ -1,3 +1,3 @@
 import { createPrevuesApp } from './app.js'
 
-createPrevuesApp('client').mount('#prevues')
+export const app = createPrevuesApp();

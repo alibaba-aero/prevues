@@ -1,9 +1,9 @@
 import path from 'path'
 import { VueLoaderPlugin } from 'vue-loader'
-// import WebpackBar from 'webpackbar'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {PrevuesConfig} from "../prevues.type";
 import {Configuration} from 'webpack'
+import WebpackBar from "webpackbar";
 
 export class WebpackBaseConfig {
     constructor(protected readonly config: PrevuesConfig, protected readonly rootDir: string) {
@@ -56,8 +56,9 @@ export class WebpackBaseConfig {
                     filename: 'index.html',
                     template: path.resolve(this.rootDir, this.config.templatePath),
                     minify: true,
-                    inject: true
+                    inject: true,
                 }),
+                new WebpackBar()
             ],
             resolve: {
                 extensions: ['.wasm', '.mjs', '.js', '.json', '.vue', '.jsx', '.ts', '.tsx'],

@@ -1,7 +1,7 @@
+src
 node_modules
+example
 yarn-error.log
 .idea
 .VSCode
 .DS_Store
-dist
-example/dist

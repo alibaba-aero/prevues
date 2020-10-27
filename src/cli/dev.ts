@@ -4,6 +4,7 @@ import * as path from 'path'
 import {PrevuesConfig} from "../prevues.type";
 import WebpackDevServer = require('webpack-dev-server');
 import {TemplateContext} from "../template";
+import {WebpackServerConfig} from "../webpack/server";
 
 exports.run = async function (options: {
     config: PrevuesConfig;
@@ -13,13 +14,13 @@ exports.run = async function (options: {
 
     await templateContext.buildTemplates()
 
-    const webpackConfig = new WebpackClientConfig(options.config, options.rootDir)
+    const clientConfig = new WebpackClientConfig(options.config, options.rootDir)
+    const serverConfig = new WebpackServerConfig(options.config, options.rootDir)
 
-    const compiler = webpack(webpackConfig.toConfig())
+    const compiler = webpack([
+        clientConfig.toConfig(),
+        serverConfig.toConfig(),
+    ])
 
     const devServer = new WebpackDevServer(compiler)
-    devServer.listen(9000)
-    // compiler.run((err, stats) => {
-    //     console.log(err, stats)
-    // })
 }

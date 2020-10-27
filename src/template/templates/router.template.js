@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory, RouterView, RouterLink } from 'vue-router'
+import {createRouter as baseCreateRouter, createWebHistory, RouterView, RouterLink, createMemoryHistory} from 'vue-router'
 import { routes } from '../routes'
 
-export const router = createRouter({
+export const createRouter = (mode) => baseCreateRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-    history: createWebHistory(),
+    history: mode === 'client' ? createWebHistory() : createMemoryHistory(),
     routes, // short for `routes: routes`
 })
 

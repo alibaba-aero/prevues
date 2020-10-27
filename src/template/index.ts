@@ -6,8 +6,8 @@ import * as fs from "fs";
 export class TemplateContext {
     private prevuesDir: string;
 
-    constructor(protected rootDir: string) {
-        this.prevuesDir = path.resolve(this.rootDir, '.prevues')
+    constructor(protected rootDir: string, protected outputDir='.prevues') {
+        this.prevuesDir = path.resolve(this.rootDir, outputDir)
     }
 
     async buildTemplates() {
@@ -26,7 +26,11 @@ export class TemplateContext {
     async buildTemplate(file: string) {
         const fileRelativePath = path.relative(path.resolve(__dirname, './templates'), file)
         let data = (await fs.promises.readFile(file)).toString();
-        data = template(data)({})
+        data = template(data)({
+            scripts: [
+                `<script src="/${this.outputDir.replace(/^\/(.+?)\/$/, '$1')}/client.js" type="module"></script>`
+            ]
+        })
         await fs.promises.writeFile(path.resolve(this.prevuesDir, fileRelativePath.replace('.template', '')), data)
     }
 }

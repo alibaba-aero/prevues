@@ -1,3 +1,3 @@
-import { createPrevuesApp } from './app'
+import { createPrevuesApp } from './app.js'
 
-createPrevuesApp().mount('#prevues')
+createPrevuesApp('client').mount('#prevues')
